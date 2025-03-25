@@ -15,7 +15,7 @@
 
     public class FlightRepository(IMapper mapper, IConfiguration configuration) : IFlightRepository
     {
-        // TODO 2.1: Upravte metodu tak, aby vrátila pouze lety specifického typu
+        // Done 2.1: Upravte metodu tak, aby vrátila pouze lety specifického typu
         public IList<FlightModel> GetAllFlights()
         {
             using var dbContext = new LocalDatabaseContext(configuration);
@@ -25,8 +25,33 @@
             return mapper.ProjectTo<FlightModel>(flights).ToList();
         }
 
-        // TODO 2.3: Vytvořte metodu, která načte letadla, která jsou ve vzduchu, seřadí je od nejstarších,
+        public IList<FlightModel> GetFlightsOfType(FlightType targetType)
+        {
+            using var dbContext = new LocalDatabaseContext(configuration);
+
+            var flights = dbContext.Flights.Where(x => x.Type == targetType);
+
+            return mapper.ProjectTo<FlightModel>(flights).ToList();
+        }
+
+        // Done 2.3: Vytvořte metodu, která načte letadla, která jsou ve vzduchu, seřadí je od nejstarších,
         // a v případě shody dá vlečné pred kluzák, který táhne
+        public IList<FlightModel> GetAirplanesInAir()
+        {
+
+
+            using var dbContext = new LocalDatabaseContext(configuration);
+
+            var flights = dbContext.Flights
+                                   .Include(flight => flight.Airplane)
+                                   .Include(flight => flight.Copilot)
+                                   .Include(flight => flight.Pilot)
+                                   .Where(flight => flight.LandingTime == null)
+                                   .OrderBy(flight => flight.TakeoffTime)
+                                        .ThenBy(flight => flight.Type == FlightType.Glider ? 0 : 1);
+
+            return mapper.ProjectTo<FlightModel>(flights).ToList();
+        }
 
         public void LandFlight(FlightLandingModel landingModel)
         {
