@@ -24,9 +24,6 @@
 
         public byte[] Execute()
         {
-            // Done 5.1: Naimplementujte export do CSV
-            // TIP: CSV soubor je pouze string, který se dá vytvořit pomocí třídy StringBuilder
-            // TIP: Do bytové reprezentace je možné jej převést například pomocí metody: Encoding.UTF8.GetBytes(..)
             var report = flightRepository.GetReport();
             var sb = new StringBuilder();
             sb.AppendLine(ToCSVLine(_headers));

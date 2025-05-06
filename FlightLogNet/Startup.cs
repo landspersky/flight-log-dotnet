@@ -23,7 +23,6 @@ namespace FlightLogNet
             InjectConfiguration.Initialization(services);
             services.AddControllers();
             services.AddAutoMapper(typeof(AutoMapperProfile));
-            //services.AddAutoMapper(System.Reflection.Assembly.GetCallingAssembly());
             services.AddScoped<AirplaneFacade, AirplaneFacade>();
             services.AddScoped<IAirplaneRepository, AirplaneRepository>();
             services.AddCors(options =>

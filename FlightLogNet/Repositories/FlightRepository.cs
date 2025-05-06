@@ -15,7 +15,6 @@
 
     public class FlightRepository(IMapper mapper, IConfiguration configuration) : IFlightRepository
     {
-        // Done 2.1: Upravte metodu tak, aby vrátila pouze lety specifického typu
         public IList<FlightModel> GetAllFlights()
         {
             using var dbContext = new LocalDatabaseContext(configuration);
@@ -34,8 +33,6 @@
             return mapper.ProjectTo<FlightModel>(flights).ToList();
         }
 
-        // Done 2.3: Vytvořte metodu, která načte letadla, která jsou ve vzduchu, seřadí je od nejstarších,
-        // a v případě shody dá vlečné pred kluzák, který táhne
         public IList<FlightModel> GetAirplanesInAir()
         {
 

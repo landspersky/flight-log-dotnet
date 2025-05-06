@@ -10,8 +10,6 @@
 
     public class ClubUserDatabase(IConfiguration configuration, IMapper mapper, ILogger<ClubUserDatabase> logger) : IClubUserDatabase
     {
-        // Done 8.1: Přidejte si přes dependency injection configuraci
-
         public bool TryGetClubUser(long memberId, out PersonModel personModel)
         {
             personModel = this.GetClubUsers().FirstOrDefault(person => person.MemberId == memberId);

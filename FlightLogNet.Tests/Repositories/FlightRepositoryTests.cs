@@ -28,7 +28,6 @@ namespace FlightLogNet.Tests.Repositories
             var flightRepository = this.CreateFlightRepository();
 
             // Act
-            // Done 2.2: Upravte volanou metodu, aby výsledek vrátil pouze lety, které jsou kluzáky.
             var result = flightRepository.GetFlightsOfType(FlightType.Glider);
 
             // Assert
@@ -43,7 +42,6 @@ namespace FlightLogNet.Tests.Repositories
             var flightRepository = this.CreateFlightRepository();
 
             // Act
-            // Done 2.4: Doplòte metodu repozitáøe a odstraòte pøeskoèení testu (skip)
             IList<FlightModel> result = flightRepository.GetAirplanesInAir();
 
             // Assert
