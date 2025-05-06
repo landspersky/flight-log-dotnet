@@ -1,0 +1,13 @@
+﻿services:
+  flightlog:
+    build: .
+    volumes:
+      - flightlog_data:/data
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:8080
+      - SqliteConnectionString=Data Source=/data/flightlog.db;Cache=Shared
+
+volumes:
+  flightlog_data:

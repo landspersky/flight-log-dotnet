@@ -1,4 +1,15 @@
-FROM mcr.microsoft.com/dotnet/runtime-deps:7.0-alpine
+FROM mcr.microsoft.com/dotnet/runtime-deps:9.0-alpine
 WORKDIR /app
-COPY ./bin/Release/net7.0/linux-musl-x64/publish ./
+
+RUN apk update && apk add git bash
+
+RUN addgroup -S appgroup && \
+	adduser -S --shell /bin/bash --ingroup appgroup appuser && \
+	mkdir -p /data && \
+	chown appuser:appgroup /data && \
+	chmod 755 /data
+
+COPY ./bin/Release/net9.0/linux-musl-x64/publish ./
+
+USER appuser
 ENTRYPOINT ["./FlightLogNet"]

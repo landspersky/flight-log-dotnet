@@ -2,15 +2,11 @@ namespace FlightLogNet.Tests.Repositories
 {
     using System.Collections.Generic;
     using System.Linq;
-
     using AutoMapper;
-
     using FlightLogNet.Models;
     using FlightLogNet.Repositories;
-
-    using Xunit;
-
     using Microsoft.Extensions.Configuration;
+    using Xunit;
 
     public class FlightRepositoryTests(IMapper mapper, IConfiguration configuration)
     {
@@ -24,7 +20,7 @@ namespace FlightLogNet.Tests.Repositories
             TestDatabaseGenerator.RenewDatabase(configuration);
         }
 
-        [Fact(Skip = "Not correctly implemented.")]
+        [Fact]
         public void GetFlightsOfTypeGlider_Return2Gliders()
         {
             // Arrange
@@ -32,7 +28,7 @@ namespace FlightLogNet.Tests.Repositories
             var flightRepository = this.CreateFlightRepository();
 
             // Act
-            // TODO 2.2: Upravte volanou metodu, aby výsledek vrátil pouze lety, které jsou kluzáky.
+            // Done 2.2: Upravte volanou metodu, aby výsledek vrátil pouze lety, které jsou kluzáky.
             var result = flightRepository.GetFlightsOfType(FlightType.Glider);
 
             // Assert

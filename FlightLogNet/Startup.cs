@@ -2,6 +2,7 @@ namespace FlightLogNet
 {
     using AutoMapper;
     using FlightLogNet.Facades;
+    using FlightLogNet.Repositories;
     using FlightLogNet.Repositories.Interfaces;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -22,9 +23,9 @@ namespace FlightLogNet
             InjectConfiguration.Initialization(services);
             services.AddControllers();
             services.AddAutoMapper(typeof(AutoMapperProfile));
-            // services.AddAutoMapper(System.Reflection.Assembly.GetCallingAssembly());
+            //services.AddAutoMapper(System.Reflection.Assembly.GetCallingAssembly());
             services.AddScoped<AirplaneFacade, AirplaneFacade>();
-            services.AddScoped<IAirplaneRepository, IAirplaneRepository>();
+            services.AddScoped<IAirplaneRepository, AirplaneRepository>();
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(

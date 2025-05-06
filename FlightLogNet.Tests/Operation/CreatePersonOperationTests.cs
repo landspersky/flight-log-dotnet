@@ -1,12 +1,10 @@
 namespace FlightLogNet.Tests.Operation
 {
-    using Integration;
-    using Models;
     using FlightLogNet.Operation;
     using FlightLogNet.Repositories.Interfaces;
-
+    using Integration;
+    using Models;
     using Moq;
-
     using Xunit;
 
     public class CreatePersonOperationTests
@@ -93,13 +91,26 @@ namespace FlightLogNet.Tests.Operation
         public void Execute_ShouldCreateNewClubMember()
         {
             // Arrange
-
             // TODO 7.1: Naimplementujte test s použitím mockù
+            var createPersonOperation = this.CreateCreatePersonOperation();
+            var personModel = new PersonModel
+            {
+                FirstName = "Jan",
+                LastName = "Novák",
+                MemberId = 3
+            };
+            long defaultId = 0;
+            this.mockPersonRepository.Setup(repository => repository.TryGetPerson(personModel, out defaultId)).Returns(false);
+            long id = 333;
+            this.mockClubUserDatabase.Setup(db => db.TryGetClubUser(personModel.MemberId, out personModel)).Returns(true);
+            this.mockPersonRepository.Setup(repository => repository.CreateClubMember(personModel)).Returns(id);
 
             // Act
+            var result = createPersonOperation.Execute(personModel);
 
             // Assert
-
+            Assert.Equal(id, result);
+            this.mockRepository.VerifyAll();
         }
     }
 }

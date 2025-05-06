@@ -3,7 +3,18 @@
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <NeutralLanguage>cs-CZ</NeutralLanguage>
+    <IsTestProject>true</IsTestProject>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Operation\GetExportToCsvOperation.csv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Operation\GetExportToCsvOperation.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.3">

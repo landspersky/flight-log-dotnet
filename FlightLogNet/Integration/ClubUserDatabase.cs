@@ -2,16 +2,15 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-
     using AutoMapper;
-
-    using Models;
-
     using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.Logging;
+    using Models;
+    using RestSharp;
 
-    public class ClubUserDatabase(IConfiguration configuration, IMapper mapper) : IClubUserDatabase
+    public class ClubUserDatabase(IConfiguration configuration, IMapper mapper, ILogger<ClubUserDatabase> logger) : IClubUserDatabase
     {
-        // TODO 8.1: Přidejte si přes dependency injection configuraci
+        // Done 8.1: Přidejte si přes dependency injection configuraci
 
         public bool TryGetClubUser(long memberId, out PersonModel personModel)
         {
@@ -28,14 +27,28 @@
 
         private List<ClubUser> ReceiveClubUsers()
         {
-            // TODO 8.2: Naimplementujte volání endpointu ClubDB pomocí RestSharp
+            var clubDbUrl = configuration["ClubUsersApi"];
+            if (string.IsNullOrEmpty(clubDbUrl))
+            {
+                logger.LogError("Club users endpoint URL is not configured.");
+                return new List<ClubUser>();
+            }
 
-            return null;
+            var client = new RestClient(clubDbUrl);
+            var request = new RestRequest("club/user");
+
+            var response = client.Get<List<ClubUser>>(request);
+            return response;
         }
 
         private List<PersonModel> TransformToPersonModel(IList<ClubUser> users)
         {
-            return null;
+            return users.Select(user => new PersonModel
+            {
+                MemberId = user.MemberId,
+                FirstName = user.FirstName,
+                LastName = user.LastName
+            }).ToList();
         }
     }
 }
