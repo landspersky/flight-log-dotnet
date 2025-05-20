@@ -32,16 +32,16 @@ namespace FlightLogNet.Tests.Operation
 
             var towplane = new FlightModel
             {
-                TakeoffTime = new DateTime(2025, 5, 6, 8, 0, 0),
-                LandingTime = new DateTime(2025, 5, 6, 8, 30, 0),
+                TakeoffTime = new DateTime(2025, 5, 6, 8, 0, 0, DateTimeKind.Utc),
+                LandingTime = new DateTime(2025, 5, 6, 8, 30, 0, DateTimeKind.Utc),
                 Airplane = new AirplaneModel() { Id = 1, Immatriculation = "ABC123", Type = "L-13A Blaník", },
                 Pilot = new PersonModel() { MemberId = 1, LastName = "Nejezchleba" }
             };
 
             var glider = new FlightModel
             {
-                TakeoffTime = new DateTime(2025, 5, 6, 8, 5, 0),
-                LandingTime = new DateTime(2025, 5, 6, 8, 45, 0),
+                TakeoffTime = new DateTime(2025, 5, 6, 8, 5, 0, DateTimeKind.Utc),
+                LandingTime = new DateTime(2025, 5, 6, 8, 45, 0, DateTimeKind.Utc),
                 Airplane = new AirplaneModel() { Id = 2, Immatriculation = "XYZ789", Type = "Zlín Z-42M" },
                 Pilot = new PersonModel() { MemberId = 2, LastName = "Brzobohatý" }
             };
@@ -65,7 +65,6 @@ namespace FlightLogNet.Tests.Operation
             
             // Act
             var result = getExportToCsvOperation.Execute();
-            File.WriteAllBytes("C:\\Users\\jakub\\Downloads\\out.csv", result);
 
             // Assert
             Assert.Equal(expectedOutput, result);
