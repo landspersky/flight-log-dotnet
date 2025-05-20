@@ -8,7 +8,7 @@
     using Models;
     using RestSharp;
 
-    public class ClubUserDatabase(IConfiguration configuration, IMapper mapper, ILogger<ClubUserDatabase> logger) : IClubUserDatabase
+    public class ClubUserDatabase(IConfiguration configuration, ILogger<ClubUserDatabase> logger) : IClubUserDatabase
     {
         public bool TryGetClubUser(long memberId, out PersonModel personModel)
         {

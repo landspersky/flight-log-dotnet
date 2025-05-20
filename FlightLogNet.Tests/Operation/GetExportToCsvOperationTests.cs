@@ -24,7 +24,6 @@ namespace FlightLogNet.Tests.Operation
             this.getExportToCsvOperation = new GetExportToCsvOperation(this.mockFlightRepository.Object);
         }
 
-        // TODO 6.1: Odstratì skip a doplntì test, aby otestoval vrácený CSV soubor.
         [Fact]
         public void Execute_StateUnderTest_ExpectedBehavior()
         {

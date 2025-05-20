@@ -91,7 +91,6 @@ namespace FlightLogNet.Tests.Operation
         public void Execute_ShouldCreateNewClubMember()
         {
             // Arrange
-            // TODO 7.1: Naimplementujte test s použitím mockù
             var createPersonOperation = this.CreateCreatePersonOperation();
             var personModel = new PersonModel
             {
